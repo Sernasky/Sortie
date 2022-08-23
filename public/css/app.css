@@ -1,0 +1,80 @@
+body {
+    background: darkslategrey;
+    color: azure;
+    font-family: 'Crimson Text', serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 5px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #BC956B;
+}
+
+img {
+    max-width: 100%;
+}
+
+body > .container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header img {
+    height: 70px;
+}
+
+main {
+    flex: 1;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+nav li {
+    margin-right: 1rem;
+}
+
+
+.series-list{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+label{
+    display: block;
+}
+
+input,
+textarea,
+select{
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    width: 150px;
+    max-width: 50%;
+}
+
+.flash{
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 1rem 0 ;
+    border-radius: 5px;
+}
+
+.flash-success{
+    background-color: lawngreen;
+}
