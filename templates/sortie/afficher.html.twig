@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Afficher une sortie</h1>
+    {#TODO remplir les champs avec les infos de la sortie#}
+    <section>
+        <div>
+            <ul>
+                <li>nom de la sortie : </li>
+                <li>Date et heure de la sortie : </li>
+                <li>Date limite d'inscription : </li>
+                <li>Nombre de places : </li>
+                <li>Durée : </li>
+                <li>Description et infos : </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>Campus : </li>
+                <li>Lieu : </li>
+                <li>Rue : </li>
+                <li>Code postal : </li>
+                <li>Latitude : </li>
+                <li>Longitude : </li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h3>Liste des participants inscrits :</h3>
+        {#TODO récupérer un tableau de pseudo et de nom de participants à la sortie#}
+        <p>ici un tableau avec pseudo et nom</p>
+    </section>
+{% endblock %}
+
