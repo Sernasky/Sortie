@@ -54,15 +54,6 @@ class Sortie
     {
         return $this->dateHeureDebut;
     }
-    /*
-     * Création d'une méthode pour avoir un string date et pas un objet datetime
-     */
-     public function getDebut(): string
-     {
-
-         $date=DateTime::createFromFormat("'Y-M-d H:i:s",$this->dateHeureDebut);
-         return $this->$date;
-     }
 
     public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
     {
@@ -87,14 +78,7 @@ class Sortie
     {
         return $this->dateLimiteInscription;
     }
-    /*
-     * Création d'une méthode pour avoir un string date et pas un objet datetime
-     */
-    public function getlimite(): string
-    {
-        $date=\DateTime::createFromFormat("'Y-M-d H:i:s",$this->dateLimiteInscription);
-        return $this->$date;
-    }
+
 
     public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription): self
     {

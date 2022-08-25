@@ -15,8 +15,7 @@ class SortieType extends AbstractType
         $builder
             //TODO faire la validation du formulaire
             ->add('nom')
-            ->add('dateHeureDebut',
-                DateType::class, [
+            ->add('dateHeureDebut', DateType::class, [
                     'html5' => true,
                     'widget'=>'single_text'
                 ]
