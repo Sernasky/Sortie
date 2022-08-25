@@ -20,10 +20,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(
-        message: 'Ce champ ne devrait pas être vide'
+        message: 'Il vous faut une adresse mail'
     )]
     #[Assert\Email(
-        message: '{{ value }} est une adresse mail invalide.',
+        message: '{{ value }} n\'est une adresse mail valide.',
     )]
     private ?string $email = null;
 
@@ -38,19 +38,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
-        message: 'Ce champ ne devrait pas être vide'
+        message: 'Il faut renseigner votre nom.'
     )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
-        message: 'Ce champ ne devrait pas être vide'
+        message: 'Il faut renseigner votre prénom'
     )]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
-        message: 'Ce champ ne devrait pas être vide'
+        message: 'Il faut renseigner votre numéro de téléphone'
     )]
     private ?string $telephone = null;
 
