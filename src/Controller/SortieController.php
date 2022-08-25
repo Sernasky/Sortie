@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +19,12 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/creation", name="sortie_creationDeSortie")
      */
-    public function creationDeSortie(Request $request,EntityManagerInterface $entityManager): Response
+    public function creationDeSortie(Request $request,EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         $sortie= new Sortie();
+        $etat= $etatRepository->find(16);
+        $sortie->setEtat($etat);
+
         //Création du formulaire et du traitement
         $sortieForm=$this->createForm(SortieType::class, $sortie);
         //TODO traitement du formulaire à faire
