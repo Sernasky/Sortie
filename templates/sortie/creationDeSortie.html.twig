@@ -2,9 +2,12 @@
 {% block body%}
 <h1>Créer une sortie</h1>
     <div class="formulaireSortie">
-        <p>Affichage du formulaire de création de sortie</p>
-        <input type="button" value="Publier la sortie">
-        <input type="button" value="Enregistrer">
-        <input type="button" value="Annuler">
+        <p>Vous pouvez maintenant créer votre Sortie!</p>
+
+        {{form_start(sortieForm)}}
+        {{form_widget(sortieForm)}}
+        <button>Création</button>
+        {{form_end(sortieForm)}}
+
     </div>
 {%endblock%}
