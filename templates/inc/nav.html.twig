@@ -2,5 +2,12 @@
     <ul>
         <li><a href="{{ path('main_home') }}" title="Home">Home</a> </li>
 
+        {% if app.user %}
+            <li><a href="{{ path('user', {id : app.user.id}) }}" title="Modifier mon profil">Mon profil</a></li>
+            <li><a href="{{ path('app_logout') }}" title="Logout">Logout({{ app.user.pseudo }})</a></li>
+        {% else %}
+            <li><a href="{{ path('app_login') }}" title="Login">Login</a></li>
+            <li><a href="{{ path('app_register') }}" title="Create account">Register</a></li>
+        {% endif %}
     </ul>
 </nav>
