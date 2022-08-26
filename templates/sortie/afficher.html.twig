@@ -7,21 +7,22 @@
         <div>
             <ul>
                 <li>nom de la sortie :  {{ sortie.nom }}</li>
-                <li>Date et heure de la sortie :  </li>
-                <li>Date limite d'inscription :  </li>
+                <li>Date et heure de la sortie : {{ sortie.dateheuredebut|date('d-m-Y H:i:s')}} </li>
+                <li>Date limite d'inscription : {{ sortie.datelimiteinscription|date('d-m-Y')}} </li>
                 <li>Nombre de places : {{ sortie.nombreInscriptionMax}} </li>
-                <li>Durée : </li>
+                <li>Durée : {{ sortie.duree|date('H:i')}} </li>
                 <li>Description et infos : {{ sortie.infosSortie }}</li>
             </ul>
         </div>
         <div>
             <ul>
-                <li>Campus : </li>
-                <li>Lieu : </li>
-                <li>Rue : </li>
-                <li>Code postal : </li>
-                <li>Latitude : </li>
-                <li>Longitude : </li>
+                <li>Campus : {{ sortie.campus.nom}} </li>
+                <li>Ville: {{ sortie.lieu.ville.nom}} </li>
+                <li>Lieu : {{ sortie.lieu.nom }}</li>
+                <li>Rue :{{ sortie.lieu.rue}} </li>
+                <li>Code postal : {{ sortie.lieu.ville.codePostal }}</li>
+                <li>Latitude : {{ sortie.lieu.latitude }}</li>
+                <li>Longitude :{{ sortie.lieu.longitude }} </li>
             </ul>
         </div>
     </section>

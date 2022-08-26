@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\SortieRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -50,11 +52,25 @@ class Sortie
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $infosSortie = null;
 
-    #[ORM\ManyToOne(inversedBy: 'statut')]
+    #[ORM\ManyToOne(inversedBy: 'site')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Etat $etat = null;
+    private ?Campus $campus = null;
 
+    #[ORM\ManyToOne(inversedBy: 'organisateur')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
+    #[ORM\ManyToMany(targetEntity: user::class, inversedBy: 'sorties')]
+    private Collection $inscription;
+
+    #[ORM\ManyToOne(inversedBy: 'destination')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Lieu $lieu = null;
+
+    public function __construct()
+    {
+        $this->inscription = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +118,7 @@ class Sortie
         return $this->dateLimiteInscription;
     }
 
+
     public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription): self
     {
         $this->dateLimiteInscription = $dateLimiteInscription;
@@ -133,6 +150,66 @@ class Sortie
         return $this;
     }
 
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, user>
+     */
+    public function getInscription(): Collection
+    {
+        return $this->inscription;
+    }
+
+    public function addInscription(user $inscription): self
+    {
+        if (!$this->inscription->contains($inscription)) {
+            $this->inscription->add($inscription);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(user $inscription): self
+    {
+        $this->inscription->removeElement($inscription);
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
     public function getEtat(): ?Etat
     {
         return $this->etat;
@@ -144,5 +221,5 @@ class Sortie
 
         return $this;
     }
-    
+
 }

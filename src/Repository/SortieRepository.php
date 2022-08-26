@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Campus;
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

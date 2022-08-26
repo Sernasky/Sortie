@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\LieuRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +21,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/creation", name="sortie_creationDeSortie")
      */
-    public function creationDeSortie(Request $request,EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
+    public function creationDeSortie(Request $request,EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository, LieuRepository $lieuRepository): Response
     {
         $sortie= new Sortie();
         $etat= $etatRepository->find(16);
@@ -33,6 +35,11 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
         if($sortieForm->isSubmitted()&&$sortieForm->isValid()){
 
+            $user=$userRepository->find(4);
+                $sortie->setUser($user);
+
+            $lieu=$lieuRepository->find(1);
+            $sortie->setLieu($lieu);
 
             $entityManager->persist($sortie);
             $entityManager->flush();

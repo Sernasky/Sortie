@@ -78,3 +78,39 @@ select{
 .flash-success{
     background-color: lawngreen;
 }
+
+table {
+    border-collapse:collapse;
+    width:100%;
+    max-width:700px;
+    min-width:400px;
+    text-align:center;
+}
+
+.tableHeader {
+    caption-side:bottom;
+    font-weight:bold;
+    font-style:italic;
+    margin:4px;
+    background: linear-gradient(#132135, #256845) fixed;
+}
+.tableBody{
+    background-color: #DDDDDD;
+    color: darkblue;
+}
+
+table,th, td {
+    border: 1px solid gray;
+
+}
+
+th, td {
+    height: 24px;
+    padding:4px;
+    vertical-align:middle;
+}
+
+th {
+    background-color:darkred;
+}
+
