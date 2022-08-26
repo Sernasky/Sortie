@@ -6,6 +6,7 @@ use App\Repository\SortieRepository;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -15,18 +16,34 @@ class Sortie
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * @Assert\NotBlank(message="Merci de renseigner le nom de la sortie!")
+     * @Assert\Length(min="2",max="50",
+     *     minMessage="Le nom est trop court! Au moins 2 caractères.",
+     *     maxMessage="Le nom est trop long! 50 caractères maximum.")
+     */
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
-
+    /**
+     * @Assert\LessThan('-1 day',message="")
+     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $duree = null;
 
+    /**
+     * @Assert\LessThanOrEqual("$dateHeureDebut")
+     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
+    /**
+     * @Assert\Range(min="1", max="999",
+     *     minMessage="Il doit y avoir au moins 1 participant !",
+     *     maxMessage="Il doit y avoir moins de 1000 participants !")
+     */
     #[ORM\Column]
     private ?int $nombreInscriptionMax = null;
 

@@ -25,12 +25,13 @@ class SortieController extends AbstractController
         $etat= $etatRepository->find(16);
         $sortie->setEtat($etat);
 
+
         //Création du formulaire et du traitement
         $sortieForm=$this->createForm(SortieType::class, $sortie);
         //TODO traitement du formulaire à faire
 
         $sortieForm->handleRequest($request);
-        if($sortieForm->isSubmitted()){
+        if($sortieForm->isSubmitted()&&$sortieForm->isValid()){
 
 
             $entityManager->persist($sortie);
