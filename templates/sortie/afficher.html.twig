@@ -16,12 +16,13 @@
         </div>
         <div>
             <ul>
-                <li>Campus : </li>
-                <li>Lieu : </li>
-                <li>Rue : </li>
-                <li>Code postal : </li>
-                <li>Latitude :< </li>
-                <li>Longitude : </li>
+                <li>Campus : {{ sortie.campus.nom}} </li>
+                <li>Ville: {{ sortie.lieu.ville.nom}} </li>
+                <li>Lieu : {{ sortie.lieu.nom }}</li>
+                <li>Rue :{{ sortie.lieu.rue}} </li>
+                <li>Code postal : {{ sortie.lieu.ville.codePostal }}</li>
+                <li>Latitude : {{ sortie.lieu.latitude }}</li>
+                <li>Longitude :{{ sortie.lieu.longitude }} </li>
             </ul>
         </div>
     </section>

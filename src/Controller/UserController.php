@@ -38,7 +38,7 @@ class UserController extends AbstractController
                 'success',
                 'les informations de votre compte ont bien été modifiées'
             );
-            return $this->redirectToRoute('main_home');
+            return $this->redirectToRoute('sorties_list');
         }
 
 
