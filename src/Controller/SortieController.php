@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +17,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
+     * @Route("/sorties", name="sorties_list")
+     */
+    public function list(SortieRepository $sortieRepository): Response
+    {
+        $sorties = $sortieRepository->findAll();
+
+        #$sorties = $sortieRepository->findPublishedSortiesWithCampus();
+
+        return $this->render('sortie/list.html.twig', [
+            "sorties" => $sorties
+        ]);
+    }
+
+    /**
      * @Route("/sortie/creation", name="sortie_creationDeSortie")
      */
     public function creationDeSortie(Request $request,EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository, LieuRepository $lieuRepository): Response
     {
+
         $sortie= new Sortie();
         $etat= $etatRepository->find(16);
         $sortie->setEtat($etat);
@@ -35,7 +48,7 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
         if($sortieForm->isSubmitted()&&$sortieForm->isValid()){
 
-            $user=$userRepository->find(4);
+            $user=$userRepository->find(1);
                 $sortie->setUser($user);
 
             $lieu=$lieuRepository->find(1);

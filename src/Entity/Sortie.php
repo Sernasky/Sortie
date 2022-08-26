@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -18,6 +17,10 @@ class Sortie
     #[ORM\Column]
     private ?int $id = null;
 
+    /*
+     * TODO validation à faire
+     */
+
     /**
      * @Assert\NotBlank(message="Merci de renseigner le nom de la sortie!")
      * @Assert\Length(min="2",max="50",
@@ -26,18 +29,14 @@ class Sortie
      */
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
-    /**
-     * @Assert\LessThan('-1 day',message="")
-     */
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $duree = null;
 
-    /**
-     * @Assert\LessThanOrEqual("$dateHeureDebut")
-     */
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
