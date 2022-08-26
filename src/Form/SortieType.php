@@ -2,7 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
+
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +33,23 @@ class SortieType extends AbstractType
                     'widget'=>'single_text'
                 ])
             ->add('nombreInscriptionMax')
-            ->add('infosSortie');
+            ->add('infosSortie')
+            ->add('campus', EntityType::class,[
+                'label'=> "Campus",
+                'class'=>Campus::class,
+                'choice_label'=>'nom'
+            ])
+            ->add('lieu', EntityType::class,[
+                'label'=> "Lieu",
+               'class'=>Lieu::class,
+                'choice_label'=>'nom'
+            ])
+            //->add('ville', EntityType::class,[
+              //  'label'=> "Ville",
+                //'class'=>Ville::class,
+                //'choice_label'=>'nom'
+            //])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

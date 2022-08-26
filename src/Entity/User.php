@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -56,6 +58,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
+
+    #[ORM\ManyToOne(inversedBy: 'rattacher')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $campus = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: sortie::class)]
+    private Collection $organisateur;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'inscription')]
+    private Collection $sorties;
+
+    public function __construct()
+    {
+        $this->organisateur = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,6 +190,75 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, sortie>
+     */
+    public function getOrganisateur(): Collection
+    {
+        return $this->organisateur;
+    }
+
+    public function addOrganisateur(sortie $organisateur): self
+    {
+        if (!$this->organisateur->contains($organisateur)) {
+            $this->organisateur->add($organisateur);
+            $organisateur->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganisateur(sortie $organisateur): self
+    {
+        if ($this->organisateur->removeElement($organisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($organisateur->getUser() === $this) {
+                $organisateur->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->addInscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            $sorty->removeInscription($this);
+        }
 
         return $this;
     }
