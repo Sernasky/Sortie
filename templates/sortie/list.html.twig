@@ -3,58 +3,12 @@
 
 {% block body %}
     <section class="sorties-list">
-
-
-        <label for="pet-select">Choisir un campus:</label>
-
-        <select name="pets" id="pet-select">
-
-            <option value="Rennes">Rennes</option>
-            <option value="Nantes">Nantes</option>
-            <option value="Paris">Paris</option>
-
-        </select>
-        <label for="site-search">Search the site:</label>
-        <input type="search" id="site-search" name="q">
-        <label for="start">Start date:</label>
-
-        <input type="date" id="start" name="trip-start"
-               value="2018-07-22"
-               min="2018-01-01" max="2018-12-31">
-
-        <input type="date" id="start" name="trip-start"
-               value="2018-07-22"
-               min="2018-01-01" max="2018-12-31">
-
         <fieldset>
-            <legend>Choix de sortie</legend>
+            <legend>Selectionnez vos critères de recherches</legend>
 
             <div>
-                <input type="checkbox" id="orga" name="orga"
-                       checked>
-                <label for="orga">Dont je suis l'organisateur/trice</label>
+                {% include 'sortie/filtre.html.twig' %}
             </div>
-
-            <div>
-                <input type="checkbox" id="inscrit" name="inscrit">
-                <label for="inscrit">Auxquelles je suis inscrit/e</label>
-            </div>
-            <div>
-                <input type="checkbox" id="pasInscrit" name="pasInscrit">
-                <label for="pasInscrit">Auxquelles je ne suis pas inscrit/e</label>
-            </div>
-            <div>
-                <input type="checkbox" id="passees" name="passees">
-                <label for="passees">Sorties passées</label>
-            </div>
-        </fieldset>
-        <button type="submit">Rechercher</button>
-
-        <div>
-            <a href="http://localhost/sortie/public/sortie/creation">Creer une sortie</a>
-        </div>
-
-        <article>
             <table>
                 <tr class="tableHeader">
                     <td>nom de le sortie</td>
@@ -64,14 +18,18 @@
                 </tr>
                 {% for sortie in sorties %}
                     <tr class="tableBody">
-                        <td>{{ sortie.nom }}</td>
+                        <td><a href="http://localhost/Sortie/public/sortie/afficher/{{sortie.id}}">{{ sortie.nom }}</a></td>
                         <td>{{ sortie.campus.nom }}</td>
                         <td>{{ sortie.nombreInscriptionMax }}</td>
                         <td>{{ sortie.infosSortie }}</td>
                     </tr>
                 {% endfor %}
             </table>
-        </article>
 
+        </fieldset>
+        <br>
+        <div>
+            <button type="button"><a href="http://localhost/sortie/public/sortie/creation">Créer une sortie</a></button>
+        </div>
     </section>
 {% endblock %}

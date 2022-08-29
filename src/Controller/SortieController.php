@@ -6,13 +6,12 @@ use App\Data\SearchData;
 use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Form\SortieType;
-use App\Repository\LieuRepository;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,91 +20,79 @@ class SortieController extends AbstractController
 {
 
     /**
-     * @Route("/sortie/index",name="sortie_index")
+     * @Route("/sorties",name="sorties_list")
      */
-    public function index(SortieRepository $sortieRepository,Request $request):Response{
-
+    public function index(SortieRepository $sortieRepository, Request $request): Response
+    {
         //on doit générer le formulaire pour pouvoir l'afficher
         //initialisation des données
-        $data= new SearchData();
-        $form= $this->createForm(SearchType::class,$data);
+        $data = new SearchData();
+        $form = $this->createForm(SearchType::class, $data);
         $form->handleRequest($request);
         //on Récupère l'ensemble des produit lié à une recherche
-        $sorties=$sortieRepository->findSearch($data);
-        return $this->renderForm('sortie/index.html.twig', [
-            'sorties'=>$sorties,
-            'form'=>$form
+        $sorties = $sortieRepository->findSearch($data);
+        return $this->renderForm('sortie/list.html.twig', [
+            'sorties' => $sorties,
+            'form' => $form
         ]);
 
-    }
-
-
-    /**
-     * @Route("/sorties", name="sorties_list")
-     */
-    public function list(SortieRepository $sortieRepository): Response
-    {
-        $sorties = $sortieRepository->findAll();
-
-        #$sorties = $sortieRepository->findPublishedSortiesWithCampus();
-
-        return $this->render('sortie/list.html.twig', [
-            "sorties" => $sorties
-        ]);
     }
 
     /**
      * @Route("/sortie/creation", name="sortie_creationDeSortie")
      */
-    public function creationDeSortie(Request $request,EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository, LieuRepository $lieuRepository): Response
+    public function creationDeSortie(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository, LieuRepository $lieuRepository): Response
     {
 
-        $sortie= new Sortie();
-        $etat= $etatRepository->find(16);
+        $sortie = new Sortie();
+        $etat = $etatRepository->find(16);
         $sortie->setEtat($etat);
 
 
         //Création du formulaire et du traitement
-        $sortieForm=$this->createForm(SortieType::class, $sortie);
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
         //TODO traitement du formulaire à faire
 
         $sortieForm->handleRequest($request);
-        if($sortieForm->isSubmitted()&&$sortieForm->isValid()){
+        if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
-            $user=$userRepository->find($this->getUser());
-                $sortie->setUser($user);
+            $user = $userRepository->find($this->getUser());
+            $sortie->setUser($user);
 
-            $lieu=$lieuRepository->find(1);
+            $lieu = $lieuRepository->find(1);
             $sortie->setLieu($lieu);
+
+            $etat = $etatRepository->find(17);
+            $sortie->setEtat($etat);
 
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('succes','Félicitation, la sortie à bien été créée!');
+            $this->addFlash('succes', 'Félicitation, la sortie à bien été créée!');
 
-            return $this->redirectToRoute('sortie_afficher',[
-                'id'=>$sortie->getId()
+            return $this->redirectToRoute('sortie_afficher', [
+                'id' => $sortie->getId()
             ]);
         }
 
         return $this->render("/sortie/creationDeSortie.html.twig", [
-            'sortieForm'=>$sortieForm->createView()
+            'sortieForm' => $sortieForm->createView()
         ]);
     }
 
     /**
      * @Route("/sortie/afficher/{id}",name="sortie_afficher")
      */
-    public function afficher(int $id,SortieRepository $sortieRepository):Response
+    public function afficher(int $id, SortieRepository $sortieRepository): Response
     {
-        $sortie= $sortieRepository->find($id);
-        return $this->render("/sortie/afficher.html.twig",['sortie'=>$sortie]);
+        $sortie = $sortieRepository->find($id);
+        return $this->render("/sortie/afficher.html.twig", ['sortie' => $sortie]);
     }
 
     /**
      * @Route("/sortie/modifier",name="sortie_modifier")
      */
-    public function modifier():Response
+    public function modifier(): Response
     {
         return $this->render("/sortie/modifier.html.twig");
     }
