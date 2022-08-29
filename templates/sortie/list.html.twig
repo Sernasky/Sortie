@@ -50,41 +50,28 @@
         </fieldset>
         <button type="submit">Rechercher</button>
 
+        <div>
+            <a href="http://localhost/sortie/public/sortie/creation">Creer une sortie</a>
+        </div>
 
-            <article>
-                <table>
-                    <tr class="tableHeader">
-                        <td>nom de le sortie</td>
-                        <td>campus</td>
-                        <td>nbr inscrits max</td>
-                        <td>infos sortie</td>
-                    </tr>
-                    {% for sortie in sorties %}
+        <article>
+            <table>
+                <tr class="tableHeader">
+                    <td>nom de le sortie</td>
+                    <td>campus</td>
+                    <td>nbr inscrits max</td>
+                    <td>infos sortie</td>
+                </tr>
+                {% for sortie in sorties %}
                     <tr class="tableBody">
-
                         <td>{{ sortie.nom }}</td>
-                        <td>{{ sortie.campus.nom}}</td>
-                        <td>{{ sortie.nombreInscriptionMax}}</td>
+                        <td>{{ sortie.campus.nom }}</td>
+                        <td>{{ sortie.nombreInscriptionMax }}</td>
                         <td>{{ sortie.infosSortie }}</td>
-
-
                     </tr>
-                    {% endfor %}
-
-                    <div>
-                        <a href="http://localhost/sortie/public/sortie/creation">Creer une sortie</a>
-
-                        
-                    </div>
-                </table>
-
-
-
-
-
-
-
-            </article>
+                {% endfor %}
+            </table>
+        </article>
 
     </section>
 {% endblock %}

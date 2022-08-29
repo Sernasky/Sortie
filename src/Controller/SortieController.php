@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Sortie;
+use App\Form\SearchType;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\EtatRepository;
@@ -10,12 +12,34 @@ use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
+
+    /**
+     * @Route("/sortie/index",name="sortie_index")
+     */
+    public function index(SortieRepository $sortieRepository,Request $request):Response{
+
+        //on doit générer le formulaire pour pouvoir l'afficher
+        //initialisation des données
+        $data= new SearchData();
+        $form= $this->createForm(SearchType::class,$data);
+        $form->handleRequest($request);
+        //on Récupère l'ensemble des produit lié à une recherche
+        $sorties=$sortieRepository->findSearch($data);
+        return $this->renderForm('sortie/index.html.twig', [
+            'sorties'=>$sorties,
+            'form'=>$form
+        ]);
+
+    }
+
+
     /**
      * @Route("/sorties", name="sorties_list")
      */
@@ -48,7 +72,7 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
         if($sortieForm->isSubmitted()&&$sortieForm->isValid()){
 
-            $user=$userRepository->find(1);
+            $user=$userRepository->find($this->getUser());
                 $sortie->setUser($user);
 
             $lieu=$lieuRepository->find(1);
