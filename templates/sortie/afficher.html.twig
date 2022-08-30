@@ -7,6 +7,7 @@
         <div>
             <ul>
                 <li>nom de la sortie : {{ sortie.nom }}</li>
+                <li>organisateur de la sortie: {{ sortie.user.pseudo }}</li>
                 <li>Date et heure de la sortie : {{ sortie.dateheuredebut|date('d-m-Y H:i:s') }} </li>
                 <li>Date limite d'inscription : {{ sortie.datelimiteinscription|date('d-m-Y') }} </li>
                 <li>Nombre de places : {{ sortie.nombreInscriptionMax }} </li>
@@ -25,17 +26,26 @@
                 <li>Longitude :{{ sortie.lieu.longitude }} </li>
             </ul>
         </div>
+        {#todo si le temps faire modifier#}
+        {#        <div> #}
+        {#            <button type="submit"><a href="modifier.html.twig">Modifier la sortie</a></button> #}
+        {#        </div> #}
     </section>
-    <div>
-        <button type="submit">S'inscrire à la sortie: {{ sortie.nom }}</button>
-    </div>
+    {% include 'inc/inscrire.html.twig' %}
     <section>
         <h3>Liste des participants inscrits :</h3>
-        {# TODO récupérer un tableau de pseudo et de nom de participants à la sortie #}
-{#        {%for user in users%}#}
-{#        {{sortie.user}}#}
-{#        {%endfor%}#}
-        <p>ici un tableau avec pseudo et nom</p>
+        <table>
+            <tr class="tableHeader">
+                <td>pseudo</td>
+                <td> nom</td>
+            </tr>
+            {% for participant in participants %}
+                <tr class="tableBody">
+                    <td>{{ participant.pseudo }}</td>
+                    <td>{{ participant.lastname }} {{ participant.firstname }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </section>
 {% endblock %}
 

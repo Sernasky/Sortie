@@ -95,4 +95,6 @@ class SortieRepository extends ServiceEntityRepository
         //TODO faire les requete par date, tuto environ 35 min
     return $query->getQuery()->getResult();
     }
+
+
 }

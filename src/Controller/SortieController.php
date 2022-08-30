@@ -56,14 +56,16 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
-            $user = $userRepository->find($this->getUser());
-            $sortie->setUser($user);
+            $organisateur = $userRepository->find($this->getUser());
+            $sortie->setUser($organisateur);
 
+            //TODO configurer le lieu/ enlever le bouchonage
             $lieu = $lieuRepository->find(1);
             $sortie->setLieu($lieu);
 
             $etat = $etatRepository->find(17);
             $sortie->setEtat($etat);
+
 
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -86,14 +88,58 @@ class SortieController extends AbstractController
     public function afficher(int $id, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);
-        return $this->render("/sortie/afficher.html.twig", ['sortie' => $sortie]);
+        $participants= $sortieRepository->find($id)->getInscription();
+        return $this->render("/sortie/afficher.html.twig", [
+            'sortie' => $sortie,
+            'participants' => $participants
+        ]);
     }
 
     /**
-     * @Route("/sortie/modifier",name="sortie_modifier")
+     * @Route("/sortie/afficher/{id}/inscrire",name="sortie_inscription")
      */
-    public function modifier(): Response
+    public function inscription(int $id, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-        return $this->render("/sortie/modifier.html.twig");
+
+        $sortie = $sortieRepository->find($id);
+        $participant = $userRepository->find($this->getUser());
+        $sortie->addInscription($participant);
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('succes', 'Félicitation, tu es inscrits!');
+        return $this->render("/sortie/bravo.html.twig");
     }
+//    /**
+//     * @Route("/sortie/modifier",name="sortie_modifier")
+//     */
+//    public function modifier(Request $request, EntityManagerInterface $entityManager, User $user): Response
+//    {
+//        if ($this->getUser() !== $user) {
+//            return $this->redirectToRoute('app_register');
+//        }
+//
+//        $form = $this->createForm(UserType::class, $user);
+//
+//        $form->handleRequest($request);
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $user = $form->getData();
+//            $entityManager->persist($user);
+//            $entityManager->flush();
+//
+//            $this->addFlash(
+//                'success',
+//                'les informations de votre compte ont bien été modifiées'
+//            );
+//            return $this->redirectToRoute('sorties_list');
+//        }
+//
+//
+//        return $this->render('user/updateProfil.html.twig', [
+//            'form' => $form->createView()
+//        ]);
+//
+//        return $this->render("/sortie/modifier.html.twig");
+//    }
 }

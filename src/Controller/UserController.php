@@ -14,21 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/user/{id}', name: 'user')]
-    public function updateProfil(int $id,User $user, Request $request, EntityManagerInterface $manager, UserRepository $userRepository): Response
+    public function updateProfil(int $id, User $user, Request $request, EntityManagerInterface $manager, UserRepository $userRepository): Response
     {
 
         #if($this->getUser()){
-         #   return $this->redirectToRoute('app_login');
+        #   return $this->redirectToRoute('app_login');
         #}
 
-        if ($this->getUser()!==$user){
+        if ($this->getUser() !== $user) {
             return $this->redirectToRoute('app_register');
         }
 
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()&& $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $manager->persist($user);
             $manager->flush();
@@ -39,10 +39,6 @@ class UserController extends AbstractController
             );
             return $this->redirectToRoute('sorties_list');
         }
-
-
-
-
 
 
         return $this->render('user/updateProfil.html.twig', [
