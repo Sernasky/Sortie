@@ -6,8 +6,8 @@ use App\Data\SearchData;
 use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Form\SortieType;
-use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,9 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class SortieController extends AbstractController
 {
-
     /**
      * @Route("/sorties",name="sorties_list")
      */
