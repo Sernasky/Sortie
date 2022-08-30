@@ -1,35 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Afficher une sortie</h1>
-    {#TODO remplir les champs avec les infos de la sortie#}
+    <h1>Afficher une sortie</h1>
+    {# TODO remplir les champs avec les infos de la sortie #}
     <section>
         <div>
             <ul>
-                <li>nom de la sortie :  {{ sortie.nom }}</li>
-                <li>Date et heure de la sortie : {{ sortie.dateheuredebut|date('d-m-Y H:i:s')}} </li>
-                <li>Date limite d'inscription : {{ sortie.datelimiteinscription|date('d-m-Y')}} </li>
-                <li>Nombre de places : {{ sortie.nombreInscriptionMax}} </li>
-                <li>Durée : {{ sortie.duree|date('H:i')}} </li>
+                <li>nom de la sortie : {{ sortie.nom }}</li>
+                <li>organisateur de la sortie: {{ sortie.user.pseudo }}</li>
+                <li>Date et heure de la sortie : {{ sortie.dateheuredebut|date('d-m-Y H:i:s') }} </li>
+                <li>Date limite d'inscription : {{ sortie.datelimiteinscription|date('d-m-Y') }} </li>
+                <li>Nombre de places : {{ sortie.nombreInscriptionMax }} </li>
+                <li>Durée : {{ sortie.duree|date('H:i') }} </li>
                 <li>Description et infos : {{ sortie.infosSortie }}</li>
             </ul>
         </div>
         <div>
             <ul>
-                <li>Campus : {{ sortie.campus.nom}} </li>
-                <li>Ville: {{ sortie.lieu.ville.nom}} </li>
+                <li>Campus : {{ sortie.campus.nom }} </li>
+                <li>Ville: {{ sortie.lieu.ville.nom }} </li>
                 <li>Lieu : {{ sortie.lieu.nom }}</li>
-                <li>Rue :{{ sortie.lieu.rue}} </li>
+                <li>Rue :{{ sortie.lieu.rue }} </li>
                 <li>Code postal : {{ sortie.lieu.ville.codePostal }}</li>
                 <li>Latitude : {{ sortie.lieu.latitude }}</li>
                 <li>Longitude :{{ sortie.lieu.longitude }} </li>
             </ul>
         </div>
+        {#todo si le temps faire modifier#}
+        {#        <div> #}
+        {#            <button type="submit"><a href="modifier.html.twig">Modifier la sortie</a></button> #}
+        {#        </div> #}
     </section>
+    {% include 'inc/inscrire.html.twig' %}
     <section>
         <h3>Liste des participants inscrits :</h3>
-        {#TODO récupérer un tableau de pseudo et de nom de participants à la sortie#}
-        <p>ici un tableau avec pseudo et nom</p>
+        <table>
+            <tr class="tableHeader">
+                <td>pseudo</td>
+                <td> nom</td>
+            </tr>
+            {% for participant in participants %}
+                <tr class="tableBody">
+                    <td>{{ participant.pseudo }}</td>
+                    <td>{{ participant.lastname }} {{ participant.firstname }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </section>
 {% endblock %}
 

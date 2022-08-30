@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Campus;
 use App\Entity\Sortie;
 use App\Entity\User;
@@ -41,6 +42,8 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
+
+
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
@@ -65,4 +68,35 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * Récupère les produits en lien avec une recherche
+     * @return Sortie[]
+     */
+    public function findSearch(SearchData $search): array
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->join('p.campus','c');
+        if (!empty($search->q)){
+            $query=$query
+                ->andWhere('p.nom LIKE :q')
+                ->setParameter('q',"%{$search->q}%");
+        }
+
+        if (!empty($search->campus)){
+            $query=$query
+                ->andWhere('c.id IN (:campus)')
+                ->setParameter('campus', $search->campus);
+        }
+//        if (!empty($search->isInscrit)){
+//            $query= $query
+//                ->andWhere('p.inscription = 1');
+//        }
+
+        //TODO faire les requete par date, tuto environ 35 min
+    return $query->getQuery()->getResult();
+    }
+
+
 }
