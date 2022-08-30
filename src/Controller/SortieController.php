@@ -48,10 +48,10 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
         if($sortieForm->isSubmitted()&&$sortieForm->isValid()){
 
-            $user=$userRepository->find(1);
+            $user=$userRepository->find($this->getUser());
                 $sortie->setUser($user);
 
-            $lieu=$lieuRepository->find(1);
+            $lieu=$lieuRepository->find(5);
             $sortie->setLieu($lieu);
 
             $entityManager->persist($sortie);

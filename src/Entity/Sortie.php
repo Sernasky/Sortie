@@ -21,34 +21,57 @@ class Sortie
      * TODO validation à faire
      */
 
-    /**
-     * @Assert\NotBlank(message="Merci de renseigner le nom de la sortie!")
-     * @Assert\Length(min="2",max="50",
-     *     minMessage="Le nom est trop court! Au moins 2 caractères.",
-     *     maxMessage="Le nom est trop long! 50 caractères maximum.")
-     */
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: 'Merci de renseigner le nom de la sortie!'
+    )]
+    #[Assert\Length(
+        min: '2', max: '50',
+        minMessage: 'Le nom est trop court, il faut au moins 2 caractères.', maxMessage: 'Le nom est trop long, il faut moins de 50 caractères.',
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message: 'Merci de renseigner une date pour la sortie!'
+    )]
+    #[Assert\Range(
+        notInRangeMessage:'La sortie doit être prévue au minimum 1 semaine à l\'avance et au maximum dans les 12 prochains mois',
+        min: '+6 days', max: '+1 year',
+    )]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message: 'Merci de renseigner une durée pour la sortie!'
+    )]
     private ?\DateTimeInterface $duree = null;
 
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message: 'Merci de renseigner la date limite d\'inscription à la sortie!'
+    )]
+    #[Assert\Range(
+        notInRangeMessage:'La date maximale d\'inscription à la sortie doit être au minimum 1 semaine après la création de la sortie, et au maximum dans les 12 prochains mois.',
+        min: '+6 days', max: '+1 year',
+    )]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
-    /**
-     * @Assert\Range(min="1", max="999",
-     *     minMessage="Il doit y avoir au moins 1 participant !",
-     *     maxMessage="Il doit y avoir moins de 1000 participants !")
-     */
     #[ORM\Column]
+    #[Assert\Range(
+        notInRangeMessage:'Il doit y avoir entre 1 et 999 participants pour la sortie',
+        min: '1', max: '999',
+    )]
+    #[Assert\NotBlank(
+        message: 'Merci de renseigner le nombre de participants à la sortie'
+    )]
     private ?int $nombreInscriptionMax = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank(
+        message: 'Merci des informations complémentaires à la sortie'
+    )]
     private ?string $infosSortie = null;
 
     #[ORM\ManyToOne(inversedBy: 'site')]
