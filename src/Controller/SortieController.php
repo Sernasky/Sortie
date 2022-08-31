@@ -130,40 +130,21 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('succes', 'Allez degage');
-        return $this->render("/sortie/annulationSortie.html.twig");
+        return $this->render("/sortie/desinscriptionSortie.html.twig");
     }
 
-//  /**
-//   * @Route ("/sorties",name="sorties_calcul")
-//   */
-//ublic function calculNombreInscription(SortieRepository $sortieRepository, int $id){
-//
-//   $sortie = $sortieRepository->find($id);
-//   $participants= $sortieRepository->find($id)->getInscription();
-//
-//   foreach($participants as $participant){
-//       $nombreInscrits = 0;
-//       $nombreInscrits++;
-//   }
-//
-//
-//   return $this->render("/sortie/list.html.twig", [
-//       'sortie' => $sortie,
-//       'participants' => $participants,
-//       'nombreInscrits' =>$nombreInscrits
-//   ]);
-//
+
 
 
 //    /**
-//     * @Route("/sortie/modifier",name="sortie_modifier")
-//     */
-//    public function modifier(Request $request, EntityManagerInterface $entityManager, User $user): Response
-//    {
-//        if ($this->getUser() !== $user) {
-//            return $this->redirectToRoute('app_register');
-//        }
-//
+//         return $this->render('sorties/annuler.html.twig', [    * @Route("/sortie/modifier",name="sortie_modifier")
+//             'page_name' => 'Annuler Sortie',         return $this->render('sorties/annuler.html.twig', [   */
+//             'sortie' => $sortie,             'page_name' => 'Annuler Sortie',  public function modifier(Request $request, EntityManagerInterface $entityManager, User $user): Response
+//             'participants' => $participant,             'sortie' => $sortie,  {
+//             'form' => $form->createView()             'participants' => $participant,      if ($this->getUser() !== $user) {
+//         ]);             'form' => $form->createView()          return $this->redirectToRoute('app_register');
+//     }         ]);      }
+//      }
 //        $form = $this->createForm(UserType::class, $user);
 //
 //        $form->handleRequest($request);

@@ -24,15 +24,22 @@
                 <li>Code postal : {{ sortie.lieu.ville.codePostal }}</li>
                 <li>Latitude : {{ sortie.lieu.latitude }}</li>
                 <li>Longitude :{{ sortie.lieu.longitude }} </li>
+
             </ul>
+            {% if sortie.etat.id == 21 %}
+            <h2>Motif de l'annulation de la sortie :{{ sortie.fieldName }}</h2>
+            {% endif %}
         </div>
         {#todo si le temps faire modifier#}
         {#        <div> #}
         {#            <button type="submit"><a href="modifier.html.twig">Modifier la sortie</a></button> #}
         {#        </div> #}
     </section>
+    {% if sortie.etat.id == 17 %}
     {% include 'inc/inscrire.html.twig' %}
     {% include 'inc/desinscrire.html.twig' %}
+    {% endif %}
+
     <section>
         <h3>Liste des participants inscrits :</h3>
         <table>
@@ -47,6 +54,9 @@
                 </tr>
             {% endfor %}
         </table>
+        {% if app.user.id == sortie.user.id %}
+        <a href="{{ path('annulation_sortie', {'id': sortie.id}) }}"><button class="btn btn-dark btn-block w-100">Annuler la sortie</button></a>
+        {% endif %}
     </section>
 {% endblock %}
 
