@@ -31,9 +31,6 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
         //on Récupère l'ensemble des produit lié à une recherche
         $sorties = $sortieRepository->findSearch($data);
-
-
-
         return $this->renderForm('sortie/list.html.twig', [
             'sorties' => $sorties,
             'form' => $form
@@ -73,7 +70,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('succes', 'Félicitation, la sortie à bien été créée!');
+            $this->addFlash('succes', 'Félicitations, la sortie à bien été créée!');
 
             return $this->redirectToRoute('sortie_afficher', [
                 'id' => $sortie->getId()
@@ -88,33 +85,50 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/afficher/{id}",name="sortie_afficher")
      */
-    public function afficher(int $id, SortieRepository $sortieRepository): Response
+    public function afficher(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
-
         $sortie = $sortieRepository->find($id);
-        $participants= $sortieRepository->find($id)->getInscription();
+        $date_now = new \DateTime('now');
+        $date_debut = $sortie->getDateHeureDebut();
 
-        return $this->render("/sortie/afficher.html.twig", [
-            'sortie' => $sortie,
-            'participants' => $participants
-        ]);
+        if ($date_now < $date_debut) {
+            $participants = $sortieRepository->find($id)->getInscription();
+            return $this->render("/sortie/afficher.html.twig", [
+                'sortie' => $sortie,
+                'participants' => $participants
+            ]);
+        } else {
+            $etat = $etatRepository->find(22);
+            $sortie->setEtat($etat);
+            return $this->render("/sortie/archive.html.twig");
+        }//
     }
 
     /**
      * @Route("/sortie/afficher/{id}/inscrire",name="sortie_inscription")
      */
-    public function inscription(int $id, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    public function inscription(int $id, EtatRepository $etatRepository, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
 
         $sortie = $sortieRepository->find($id);
         $participant = $userRepository->find($this->getUser());
-        $sortie->addInscription($participant);
 
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+        $dateNow = new \DateTime("now");
+        $dateMax = $sortie->getDateLimiteInscription();
 
-        $this->addFlash('succes', 'Félicitation, tu es inscrits!');
-        return $this->render("/sortie/bravo.html.twig");
+        if ($dateNow < $dateMax) {
+            $sortie->addInscription($participant);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('succes', 'Félicitations, tu es inscrit!');
+            return $this->render("/sortie/bravo.html.twig");
+        } else {
+            $sortie->setEtat($etatRepository->find(18));
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            return $this->render('/sortie/cloture.html.twig');
+        }
     }
     /**
      * @Route("/sortie/afficher/{id}/desinscrire",name="sortie_desinscription")
@@ -137,14 +151,14 @@ class SortieController extends AbstractController
 
 
 //    /**
-//         return $this->render('sorties/annuler.html.twig', [    * @Route("/sortie/modifier",name="sortie_modifier")
-//             'page_name' => 'Annuler Sortie',         return $this->render('sorties/annuler.html.twig', [   */
-//             'sortie' => $sortie,             'page_name' => 'Annuler Sortie',  public function modifier(Request $request, EntityManagerInterface $entityManager, User $user): Response
-//             'participants' => $participant,             'sortie' => $sortie,  {
-//             'form' => $form->createView()             'participants' => $participant,      if ($this->getUser() !== $user) {
-//         ]);             'form' => $form->createView()          return $this->redirectToRoute('app_register');
-//     }         ]);      }
-//      }
+//     * @Route("/sortie/modifier",name="sortie_modifier")
+//     */
+//    public function modifier(Request $request, EntityManagerInterface $entityManager, User $user): Response
+//    {
+//        if ($this->getUser() !== $user) {
+//            return $this->redirectToRoute('app_register');
+//        }
+//
 //        $form = $this->createForm(UserType::class, $user);
 //
 //        $form->handleRequest($request);

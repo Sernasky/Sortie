@@ -26,7 +26,7 @@ class Etat
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sortie::class)]
     private Collection $statut;
 
-    #[ORM\OneToMany(mappedBy: 'etat', targetEntity: sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sortie::class)]
     private Collection $suivi;
 
 
@@ -128,14 +128,14 @@ class Etat
     }
 
     /**
-     * @return Collection<int, sortie>
+     * @return Collection<int, Sortie>
      */
     public function getSuivi(): Collection
     {
         return $this->suivi;
     }
 
-    public function addSuivi(sortie $suivi): self
+    public function addSuivi(Sortie $suivi): self
     {
         if (!$this->suivi->contains($suivi)) {
             $this->suivi->add($suivi);
@@ -145,7 +145,7 @@ class Etat
         return $this;
     }
 
-    public function removeSuivi(sortie $suivi): self
+    public function removeSuivi(Sortie $suivi): self
     {
         if ($this->suivi->removeElement($suivi)) {
             // set the owning side to null (unless already changed)
