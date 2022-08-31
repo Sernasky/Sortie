@@ -6,8 +6,8 @@
     <section>
         <div>
             <ul>
-                <li>nom de la sortie : {{ sortie.nom }}</li>
-                <li>organisateur de la sortie: {{ sortie.user.pseudo }}</li>
+                <li>Nom de la sortie : {{ sortie.nom }}</li>
+                <li>Organisateur de la sortie: {{ sortie.user.pseudo }}</li>
                 <li>Date et heure de la sortie : {{ sortie.dateheuredebut|date('d-m-Y H:i:s') }} </li>
                 <li>Date limite d'inscription : {{ sortie.datelimiteinscription|date('d-m-Y') }} </li>
                 <li>Nombre de places : {{ sortie.nombreInscriptionMax }} </li>

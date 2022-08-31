@@ -246,5 +246,4 @@ class Sortie
 
         return $this;
     }
-
 }
