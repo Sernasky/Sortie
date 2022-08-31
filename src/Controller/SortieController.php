@@ -6,8 +6,8 @@ use App\Data\SearchData;
 use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Form\SortieType;
-use App\Repository\LieuRepository;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,7 +88,7 @@ class SortieController extends AbstractController
     public function afficher(int $id, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);
-        $participants= $sortieRepository->find($id)->getInscription();
+        $participants = $sortieRepository->find($id)->getInscription();
         return $this->render("/sortie/afficher.html.twig", [
             'sortie' => $sortie,
             'participants' => $participants
@@ -98,19 +98,30 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/afficher/{id}/inscrire",name="sortie_inscription")
      */
-    public function inscription(int $id, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    public function inscription(int $id,EtatRepository $etatRepository, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
 
         $sortie = $sortieRepository->find($id);
         $participant = $userRepository->find($this->getUser());
-        $sortie->addInscription($participant);
 
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+        $dateNow = new \DateTime("now");
+        $dateMax = $sortie->getDateLimiteInscription();
 
-        $this->addFlash('succes', 'Félicitation, tu es inscrits!');
-        return $this->render("/sortie/bravo.html.twig");
+        if ($dateNow < $dateMax) {
+            $sortie->addInscription($participant);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('succes', 'Félicitation, tu es inscrits!');
+            return $this->render("/sortie/bravo.html.twig");
+        } else {
+        $sortie->setEtat($etatRepository->find(18));
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        return $this->render('/sortie/cloture.html.twig');
+        }
     }
+
 //    /**
 //     * @Route("/sortie/modifier",name="sortie_modifier")
 //     */
@@ -142,4 +153,4 @@ class SortieController extends AbstractController
 //
 //        return $this->render("/sortie/modifier.html.twig");
 //    }
-}
+    }
