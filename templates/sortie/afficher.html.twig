@@ -27,7 +27,7 @@
 
             </ul>
             {% if sortie.etat.id == 21 %}
-            <h2>Motif de l'annulation de la sortie :{{ sortie.fieldName }}</h2>
+            <h2>Motif de l'annulation de la sortie :{{ sortie.motifAnnulation}}</h2>
             {% endif %}
         </div>
         {#todo si le temps faire modifier#}
@@ -39,7 +39,10 @@
     {% include 'inc/inscrire.html.twig' %}
     {% include 'inc/desinscrire.html.twig' %}
     {% endif %}
-
+    {% if sortie.etat.id == 18 %}
+    {% include 'inc/inscrire.html.twig' %}
+    {% include 'inc/desinscrire.html.twig' %}
+    {% endif %}
     <section>
         <h3>Liste des participants inscrits :</h3>
         <table>
