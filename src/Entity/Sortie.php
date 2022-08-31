@@ -89,6 +89,9 @@ class Sortie
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $lieu = null;
 
+    #[ORM\ManyToOne(inversedBy: 'suivi')]
+    private ?Etat $etat = null;
+
     public function __construct()
     {
         $this->inscription = new ArrayCollection();
@@ -243,5 +246,4 @@ class Sortie
 
         return $this;
     }
-
 }

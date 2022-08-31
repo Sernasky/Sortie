@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 
 class SortieController extends AbstractController
@@ -60,7 +61,7 @@ class SortieController extends AbstractController
             $sortie->setUser($organisateur);
 
             //TODO configurer le lieu/ enlever le bouchonage
-            $lieu = $lieuRepository->find(1);
+            $lieu = $lieuRepository->find(5);
             $sortie->setLieu($lieu);
 
             $etat = $etatRepository->find(17);
@@ -70,7 +71,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('succes', 'Félicitation, la sortie à bien été créée!');
+            $this->addFlash('succes', 'Félicitations, la sortie à bien été créée!');
 
             return $this->redirectToRoute('sortie_afficher', [
                 'id' => $sortie->getId()
@@ -85,14 +86,23 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/afficher/{id}",name="sortie_afficher")
      */
-    public function afficher(int $id, SortieRepository $sortieRepository): Response
+    public function afficher(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
         $sortie = $sortieRepository->find($id);
+        $date_now = new \DateTime('now') ;
+        $date_debut = $sortie->getDateHeureDebut();
+
+        if ($date_now < $date_debut ) {
         $participants= $sortieRepository->find($id)->getInscription();
         return $this->render("/sortie/afficher.html.twig", [
             'sortie' => $sortie,
             'participants' => $participants
         ]);
+        }else{
+            $etat = $etatRepository->find(22);
+            $sortie->setEtat($etat);
+            return $this->render("/sortie/archive.html.twig");
+        }//
     }
 
     /**
@@ -108,7 +118,7 @@ class SortieController extends AbstractController
         $entityManager->persist($sortie);
         $entityManager->flush();
 
-        $this->addFlash('succes', 'Félicitation, tu es inscrits!');
+        $this->addFlash('succes', 'Félicitations, tu es inscrit!');
         return $this->render("/sortie/bravo.html.twig");
     }
 //    /**
