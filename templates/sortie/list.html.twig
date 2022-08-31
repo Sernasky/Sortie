@@ -15,13 +15,24 @@
                     <td>campus</td>
                     <td>nbr inscrits max</td>
                     <td>infos sortie</td>
+                    <td>Etat</td>
+                    <td>Inscrit</td>
+                    <td>Organisateur</td>
                 </tr>
                 {% for sortie in sorties %}
                     <tr class="tableBody">
                         <td><a href="http://localhost/Sortie/public/sortie/afficher/{{sortie.id}}">{{ sortie.nom }}</a></td>
                         <td>{{ sortie.campus.nom }}</td>
+                        {# <td>{{ sortie.user.nombreInscrits }}</td> #}
                         <td>{{ sortie.nombreInscriptionMax }}</td>
                         <td>{{ sortie.infosSortie }}</td>
+                        <td>{{ sortie.etat.libelle }}</td>
+                        {% if sortie.id == sortie.user.id %}
+                            <td>X</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        <td>{{ sortie.user.pseudo }}</td>
                     </tr>
                 {% endfor %}
             </table>

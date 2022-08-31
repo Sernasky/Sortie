@@ -26,12 +26,16 @@ class Etat
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sortie::class)]
     private Collection $statut;
 
+    #[ORM\OneToMany(mappedBy: 'etat', targetEntity: sortie::class)]
+    private Collection $suivi;
+
 
 
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
         $this->statut = new ArrayCollection();
+        $this->suivi = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,6 +121,36 @@ class Etat
             // set the owning side to null (unless already changed)
             if ($statut->getEtat() === $this) {
                 $statut->setEtat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, sortie>
+     */
+    public function getSuivi(): Collection
+    {
+        return $this->suivi;
+    }
+
+    public function addSuivi(sortie $suivi): self
+    {
+        if (!$this->suivi->contains($suivi)) {
+            $this->suivi->add($suivi);
+            $suivi->setEtat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSuivi(sortie $suivi): self
+    {
+        if ($this->suivi->removeElement($suivi)) {
+            // set the owning side to null (unless already changed)
+            if ($suivi->getEtat() === $this) {
+                $suivi->setEtat(null);
             }
         }
 

@@ -31,6 +31,9 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
         //on Récupère l'ensemble des produit lié à une recherche
         $sorties = $sortieRepository->findSearch($data);
+
+
+
         return $this->renderForm('sortie/list.html.twig', [
             'sorties' => $sorties,
             'form' => $form
@@ -87,8 +90,10 @@ class SortieController extends AbstractController
      */
     public function afficher(int $id, SortieRepository $sortieRepository): Response
     {
+
         $sortie = $sortieRepository->find($id);
         $participants= $sortieRepository->find($id)->getInscription();
+
         return $this->render("/sortie/afficher.html.twig", [
             'sortie' => $sortie,
             'participants' => $participants
@@ -111,6 +116,45 @@ class SortieController extends AbstractController
         $this->addFlash('succes', 'Félicitation, tu es inscrits!');
         return $this->render("/sortie/bravo.html.twig");
     }
+    /**
+     * @Route("/sortie/afficher/{id}/desinscrire",name="sortie_desinscription")
+     */
+    public function desinscription(int $id, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+
+        $sortie = $sortieRepository->find($id);
+        $participant = $userRepository->find($this->getUser());
+        $sortie->removeInscription($participant);
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('succes', 'Allez degage');
+        return $this->render("/sortie/annulationSortie.html.twig");
+    }
+
+//  /**
+//   * @Route ("/sorties",name="sorties_calcul")
+//   */
+//ublic function calculNombreInscription(SortieRepository $sortieRepository, int $id){
+//
+//   $sortie = $sortieRepository->find($id);
+//   $participants= $sortieRepository->find($id)->getInscription();
+//
+//   foreach($participants as $participant){
+//       $nombreInscrits = 0;
+//       $nombreInscrits++;
+//   }
+//
+//
+//   return $this->render("/sortie/list.html.twig", [
+//       'sortie' => $sortie,
+//       'participants' => $participants,
+//       'nombreInscrits' =>$nombreInscrits
+//   ]);
+//
+
+
 //    /**
 //     * @Route("/sortie/modifier",name="sortie_modifier")
 //     */
