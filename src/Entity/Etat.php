@@ -156,34 +156,4 @@ class Etat
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, sortie>
-     */
-    public function getSuivi(): Collection
-    {
-        return $this->suivi;
-    }
-
-    public function addSuivi(sortie $suivi): self
-    {
-        if (!$this->suivi->contains($suivi)) {
-            $this->suivi->add($suivi);
-            $suivi->setEtat($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSuivi(sortie $suivi): self
-    {
-        if ($this->suivi->removeElement($suivi)) {
-            // set the owning side to null (unless already changed)
-            if ($suivi->getEtat() === $this) {
-                $suivi->setEtat(null);
-            }
-        }
-
-        return $this;
-    }
 }

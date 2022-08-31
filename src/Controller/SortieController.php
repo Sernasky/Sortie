@@ -6,7 +6,6 @@ use App\Data\SearchData;
 use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Form\SortieType;
-use App\Repository\LieuRepository;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
@@ -89,16 +88,16 @@ class SortieController extends AbstractController
     public function afficher(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
         $sortie = $sortieRepository->find($id);
-        $date_now = new \DateTime('now') ;
+        $date_now = new \DateTime('now');
         $date_debut = $sortie->getDateHeureDebut();
 
-        if ($date_now < $date_debut ) {
-        $participants = $sortieRepository->find($id)->getInscription();
-        return $this->render("/sortie/afficher.html.twig", [
-            'sortie' => $sortie,
-            'participants' => $participants
-        ]);
-        }else{
+        if ($date_now < $date_debut) {
+            $participants = $sortieRepository->find($id)->getInscription();
+            return $this->render("/sortie/afficher.html.twig", [
+                'sortie' => $sortie,
+                'participants' => $participants
+            ]);
+        } else {
             $etat = $etatRepository->find(22);
             $sortie->setEtat($etat);
             return $this->render("/sortie/archive.html.twig");
@@ -108,7 +107,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/afficher/{id}/inscrire",name="sortie_inscription")
      */
-    public function inscription(int $id,EtatRepository $etatRepository, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    public function inscription(int $id, EtatRepository $etatRepository, SortieRepository $sortieRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
 
         $sortie = $sortieRepository->find($id);
@@ -122,13 +121,13 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-        $this->addFlash('succes', 'Félicitations, tu es inscrit!');
-        return $this->render("/sortie/bravo.html.twig");
+            $this->addFlash('succes', 'Félicitations, tu es inscrit!');
+            return $this->render("/sortie/bravo.html.twig");
         } else {
-        $sortie->setEtat($etatRepository->find(18));
+            $sortie->setEtat($etatRepository->find(18));
             $entityManager->persist($sortie);
             $entityManager->flush();
-        return $this->render('/sortie/cloture.html.twig');
+            return $this->render('/sortie/cloture.html.twig');
         }
     }
 
@@ -163,4 +162,4 @@ class SortieController extends AbstractController
 //
 //        return $this->render("/sortie/modifier.html.twig");
 //    }
-    }
+}
