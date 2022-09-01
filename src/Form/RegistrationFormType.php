@@ -35,16 +35,14 @@ class RegistrationFormType extends AbstractType
                 'required' => false,
             ])
             ->add('firstname', TextType::class, [
-                'attr' => array(
-                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
-                    'placeholder' => 'Votre prénom'
-                ),
-                'label' => 'Prénom',
-                'required' => false,
-            ])
+        'attr' => array(
+            'placeholder' => 'Votre prénom'
+        ),
+        'label' => 'Prénom',
+        'required' => false,
+    ])
             ->add('lastname', TextType::class, [
                 'attr' => array(
-                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
                     'placeholder' => 'Votre nom'
                 ),
                 'label' => 'Nom',
@@ -52,7 +50,6 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('telephone', TextType::class, [
                 'attr' => array(
-                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
                     'placeholder' => '0123456789',
                 ),
                 'label' => 'Numéro de Téléphone',

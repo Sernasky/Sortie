@@ -89,7 +89,8 @@ class SortieRepository extends ServiceEntityRepository
         }
 //        if (!empty($search->isInscrit)){
 //            $query= $query
-//                ->andWhere('p.inscription = 1');
+//                ->join('','')
+//                ->andWhere('p.inscription = 1 ');
 //        }
 
         //TODO faire les requete par date, tuto environ 35 min

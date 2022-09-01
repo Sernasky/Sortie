@@ -1,19 +1,28 @@
-<nav>
-    <ul>
-        <li><a href="{{ path('sorties_list') }}" title="Sorties">Sorties</a></li>
-
-        {% if app.user %}
-            <li><a href="{{ path('user', {id : app.user.id}) }}" title="Modifier mon profil">Mon profil</a></li>
-            <li><a href="{{ path('app_logout') }}" title="Logout">Déconnexion({{ app.user.pseudo }})</a></li>
-
-            {% if is_granted("ROLE_ADMIN") %}
-                <li><a href="{{ path('admin_villes') }}" title="Villes">Villes</a></li>
-                <li><a href="{{ path('admin_campus') }}" title="Campus">Campus</a></li>
-            {% endif %}
-
-        {% else %}
-            <li><a href="{{ path('app_login') }}" title="Login">Se connecter</a></li>
-            <li><a href="{{ path('app_register') }}" title="Create account">S'inscrire</a></li>
-        {% endif %}
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+    <div class="container-fluid">
+        <h1><a href="{{ path('main_home') }}">
+                <img src="{{ asset('img/logo_sortir.png') }}" alt="Logo sortir" style="width: 110px">
+            </a>
+            Sortir.com
+        </h1>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="{{ path('sorties_list') }}">Sorties</a>
+                {% if app.user %}
+                    <a class="nav-link" href="{{ path('user', {id : app.user.id}) }}">Mon profil</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion ({{ app.user.pseudo }})</a>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <a class="nav-link" href="{{ path('admin_villes') }}">Villes</a>
+                    <a class="nav-link" href="{{ path('admin_campus') }}">Campus</a>
+                {% endif %}
+                {% else %}
+                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                    <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </nav>
