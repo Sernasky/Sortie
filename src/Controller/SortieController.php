@@ -144,7 +144,7 @@ class SortieController extends AbstractController
         $entityManager->persist($sortie);
         $entityManager->flush();
 
-        $this->addFlash('succes', 'Allez degage');
+        $this->addFlash('succes', 'Vous vous êtes bien désinscrit de la sortie.');
         return $this->render("/sortie/desinscriptionSortie.html.twig");
     }
 
