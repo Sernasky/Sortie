@@ -12,7 +12,8 @@
             <table class="table-dark" >
                 <tr class="tableHeader">
                     <td>Nom de le sortie</td>
-                    <td>Campus</td>
+                    <td>Date de la sortie</td>
+                    <td>Clôture inscription sortie</td>
                     <td>Nbr inscrits max</td>
                     <td>Infos sortie</td>
                     <td>Etat</td>
@@ -24,7 +25,8 @@
                         <td>
                             <a class="gras" href="http://localhost/Sortie/public/sortie/afficher/{{ sortie.id }}">{{ sortie.nom }}</a>
                         </td>
-                        <td >{{ sortie.campus.nom }}</td>
+                        <td>{{ sortie.dateheuredebut|date('d-m-Y H:i:s') }}</td>
+                        <td >{{ sortie.datelimiteinscription|date('d-m-Y') }}</td>
                         <td>{{ sortie.nombreInscriptionMax }}</td>
                         <td>{{ sortie.infosSortie }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
