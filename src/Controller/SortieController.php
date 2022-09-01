@@ -76,10 +76,10 @@ class SortieController extends AbstractController
     /**
      * @Route("/sortie/afficher/{id}",name="sortie_afficher")
      */
-    public function afficher(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
+    public function afficher(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, EntityManagerInterface $entityManager): Response
     {
         $sortie = $sortieRepository->find($id);
-        $date_now = new \DateTime('now');
+        $date_now = new \DateTime('- 1 month');
         $date_debut = $sortie->getDateHeureDebut();
 
         if ($date_now < $date_debut) {
@@ -91,6 +91,8 @@ class SortieController extends AbstractController
         } else {
             $etat = $etatRepository->find(22);
             $sortie->setEtat($etat);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
             return $this->render("/sortie/archive.html.twig");
         }//
     }
