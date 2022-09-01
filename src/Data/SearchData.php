@@ -6,15 +6,16 @@ use App\Entity\Campus;
 
 
 /*
- * DTO
+ * DTO: Data Transfer Objet
  * Création d'un datamodel qui va permettre de représenter les données associées au formulaire de recherche
  */
+
 class SearchData
 {
     /**
      * @var string
      */
-    public $q ='';
+    public $q = '';
 
     /**
      * @var Campus
@@ -34,6 +35,6 @@ class SearchData
     /**
      * @var boolean
      */
-    public $isInscrit=false;
+    public $isInscrit = false;
 
 }

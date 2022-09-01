@@ -1,21 +1,21 @@
-{{form_start(form)}}
+{{ form_start(form) }}
 <h4>Campus:</h4>
-{{form_row(form.campus)}}
+{{ form_row(form.campus) }}
 
 <h4>Votre recherche:</h4>
-{{form_row(form.q)}}
+{{ form_row(form.q) }}
 
 <h4>Recherche par dates</h4>
 
-{#TODO sortie dont je suis l'orga#}
+{# TODO sortie dont je suis l'orga #}
 
-{{form_row(form.isInscrit)}}
+{{ form_row(form.isInscrit) }}
 
-{#TODO sortie pas inscrit#}
+{# TODO sortie pas inscrit #}
 
-{#TODO sortie archivées#}
+{# TODO sortie archivées #}
 
 <button type="submit">Rechercher</button>
-{{form_end(form)}}
+{{ form_end(form) }}
 <br>
 <h2>Résultat de votre recherche:</h2>

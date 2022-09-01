@@ -15,42 +15,38 @@ class SearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /*
-         * Constrution du formulaire qui va nous servir de recherche
-         */
+
+        // Constrution du formulaire qui va nous servir de recherche
         $builder
             ->add(
-            'q',
-            TextType::class,[
-                'label'=> false,
-                'required'=>false,
+                'q',
+                TextType::class, [
+                'label' => false,
+                'required' => false,
             ])
-            ->add('campus', EntityType::class,[
-                'label'=> false,
-                'required'=>false,
-                'class'=> Campus::class,
-                'choice_label'=>'nom'
+            ->add('campus', EntityType::class, [
+                'label' => false,
+                'required' => false,
+                'class' => Campus::class,
+                'choice_label' => 'nom'
             ])
-            ->add('isInscrit', CheckboxType::class,[
-                'label'=>'Êtes vous inscrit à cette sortie?',
-                'required'=>false
-            ])
-        ;
+            ->add('isInscrit', CheckboxType::class, [
+                'label' => 'Êtes vous inscrit à cette sortie?',
+                'required' => false
+            ]);
     }
 
-    /*
-     * Permet de configurer les options liés au formulaire
-     */
+    //Permet de configurer les options liés au formulaire
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            //c'ets la class SearchData qui va représenter nos données
-            'data_class'=>SearchData::class,
+            //c'est la class SearchData qui va représenter nos données
+            'data_class' => SearchData::class,
             //le formulaire utilisera une méthode GET par defaut
-            //les paramètres vont passer par l url pour que l utilisateur puisse partager une recherche
-            'method'=> 'GET',
+            //les paramètres vont passer par l'url pour que l'utilisateur puisse faire une recherche
+            'method' => 'GET',
             //désactivation de la protaction car pas de soucis de cross scripting
-            'csrf_protection'=>false
+            'csrf_protection' => false
         ]);
     }
 

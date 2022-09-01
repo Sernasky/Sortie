@@ -30,7 +30,6 @@ class Etat
     private Collection $suivi;
 
 
-
     public function __construct()
     {
         $this->sorties = new ArrayCollection();

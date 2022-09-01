@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
     <section class="sorties-list">
@@ -21,7 +22,9 @@
                 </tr>
                 {% for sortie in sorties %}
                     <tr class="tableBody">
-                        <td><a href="http://localhost/Sortie/public/sortie/afficher/{{sortie.id}}">{{ sortie.nom }}</a></td>
+                        <td>
+                            <a href="http://localhost/Sortie/public/sortie/afficher/{{ sortie.id }}">{{ sortie.nom }}</a>
+                        </td>
                         <td>{{ sortie.campus.nom }}</td>
                         <td>{{ sortie.nombreInscriptionMax }}</td>
                         <td>{{ sortie.infosSortie }}</td>

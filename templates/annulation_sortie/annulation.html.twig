@@ -10,7 +10,9 @@
     {{ form_widget(annulationForm) }}
     <button class="btn btn-primary btn-lg">Enregistrer</button>
     {{ form_end(annulationForm) }}
-    <a href="{{ path('sorties_list') }}"><button class="btn btn-dark btn-lg">Annuler</button></a>
+    <a href="{{ path('sorties_list') }}">
+        <button class="btn btn-dark btn-lg">Annuler</button>
+    </a>
 {% endblock %}
 
 {% block title %}

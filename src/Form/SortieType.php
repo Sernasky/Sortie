@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Campus;
-
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,28 +20,27 @@ class SortieType extends AbstractType
             ->add('nom')
             ->add('dateHeureDebut', DateType::class, [
                     'html5' => true,
-                    'widget'=>'single_text'
+                    'widget' => 'single_text'
                 ]
             )
             ->add('duree')
             ->add('dateLimiteInscription',
                 DateType::class, [
                     'html5' => true,
-                    'widget'=>'single_text'
+                    'widget' => 'single_text'
                 ])
             ->add('nombreInscriptionMax')
             ->add('infosSortie')
-            ->add('campus', EntityType::class,[
-                'label'=> "Campus",
-                'class'=>Campus::class,
-                'choice_label'=>'nom'
+            ->add('campus', EntityType::class, [
+                'label' => "Campus",
+                'class' => Campus::class,
+                'choice_label' => 'nom'
             ])
-            ->add('lieu', EntityType::class,[
-                'label'=> "Lieu",
-               'class'=>Lieu::class,
-                'choice_label'=>'nom'
-            ])
-            ;
+            ->add('lieu', EntityType::class, [
+                'label' => "Lieu",
+                'class' => Lieu::class,
+                'choice_label' => 'nom'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

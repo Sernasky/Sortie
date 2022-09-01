@@ -6,8 +6,8 @@ use App\Data\SearchData;
 use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Form\SortieType;
-use App\Repository\LieuRepository;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -130,6 +130,7 @@ class SortieController extends AbstractController
             return $this->render('/sortie/cloture.html.twig');
         }
     }
+
     /**
      * @Route("/sortie/afficher/{id}/desinscrire",name="sortie_desinscription")
      */

@@ -43,7 +43,6 @@ class Campus
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -61,7 +60,6 @@ class Campus
             $this->site->add($site);
             $site->setCampus($this);
         }
-
         return $this;
     }
 
@@ -73,7 +71,6 @@ class Campus
                 $site->setCampus(null);
             }
         }
-
         return $this;
     }
 
@@ -91,7 +88,6 @@ class Campus
             $this->rattacher->add($rattacher);
             $rattacher->setCampus($this);
         }
-
         return $this;
     }
 
@@ -103,11 +99,11 @@ class Campus
                 $rattacher->setCampus(null);
             }
         }
-
         return $this;
     }
+
     public function __toString(): string
     {
-       return $this->nom;
+        return $this->nom;
     }
 }

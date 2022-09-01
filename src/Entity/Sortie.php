@@ -36,7 +36,7 @@ class Sortie
         message: 'Merci de renseigner une date pour la sortie!'
     )]
     #[Assert\Range(
-        notInRangeMessage:'La sortie doit être prévue au minimum 1 semaine à l\'avance et au maximum dans les 12 prochains mois',
+        notInRangeMessage: 'La sortie doit être prévue au minimum 1 semaine à l\'avance et au maximum dans les 12 prochains mois',
         min: '+6 days', max: '+1 year',
     )]
     private ?\DateTimeInterface $dateHeureDebut = null;
@@ -53,14 +53,14 @@ class Sortie
         message: 'Merci de renseigner la date limite d\'inscription à la sortie!'
     )]
     #[Assert\Range(
-        notInRangeMessage:'La date maximale d\'inscription à la sortie doit être au minimum 1 semaine après la création de la sortie, et au maximum dans les 12 prochains mois.',
+        notInRangeMessage: 'La date maximale d\'inscription à la sortie doit être au minimum 1 semaine après la création de la sortie, et au maximum dans les 12 prochains mois.',
         min: '+6 days', max: '+1 year',
     )]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
     #[Assert\Range(
-        notInRangeMessage:'Il doit y avoir entre 1 et 999 participants pour la sortie',
+        notInRangeMessage: 'Il doit y avoir entre 1 et 999 participants pour la sortie',
         min: '1', max: '999',
     )]
     #[Assert\NotBlank(
@@ -250,6 +250,7 @@ class Sortie
 
         return $this;
     }
+
     public function getMotifAnnulation(): ?string
     {
         return $this->motifAnnulation;

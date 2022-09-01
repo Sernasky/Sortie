@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,20 +13,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/user/{id}', name: 'user')]
-    public function updateProfil(int $id, User $user, Request $request, EntityManagerInterface $manager, UserRepository $userRepository): Response
+    public function updateProfil(User $user, Request $request, EntityManagerInterface $manager): Response
     {
-
-        #if($this->getUser()){
-        #   return $this->redirectToRoute('app_login');
-        #}
-
+        //test pour savoir si il y a un utilisateur connecté, sinon redirection vers la page d'identification
         if ($this->getUser() !== $user) {
             return $this->redirectToRoute('app_register');
         }
 
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
+
+        //test verification du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $manager->persist($user);
@@ -39,8 +35,6 @@ class UserController extends AbstractController
             );
             return $this->redirectToRoute('sorties_list');
         }
-
-
         return $this->render('user/updateProfil.html.twig', [
             'form' => $form->createView()
         ]);

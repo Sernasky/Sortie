@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
                 ),
                 'label' => 'Adresse Mail',
                 'required' => false,
-    ])
+            ])
             ->add('pseudo', TextType::class, [
                 'attr' => array(
                     'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
@@ -35,13 +35,13 @@ class RegistrationFormType extends AbstractType
                 'required' => false,
             ])
             ->add('firstname', TextType::class, [
-        'attr' => array(
-            'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
-            'placeholder' => 'Votre prénom'
-        ),
-        'label' => 'Prénom',
-        'required' => false,
-    ])
+                'attr' => array(
+                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
+                    'placeholder' => 'Votre prénom'
+                ),
+                'label' => 'Prénom',
+                'required' => false,
+            ])
             ->add('lastname', TextType::class, [
                 'attr' => array(
                     'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
@@ -58,12 +58,12 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Numéro de Téléphone',
                 'required' => false,
             ])
-            ->add('campus', EntityType::class,[
-                'label'=> "Campus",
-                'class'=>Campus::class,
-                'choice_label'=>'nom'])
+            ->add('campus', EntityType::class, [
+                'label' => "Campus",
+                'class' => Campus::class,
+                'choice_label' => 'nom'])
             ->add('plainPassword', PasswordType::class, [
-                'label'=> "Mot de passe",
+                'label' => "Mot de passe",
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -79,8 +79,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

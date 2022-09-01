@@ -1,6 +1,6 @@
 <nav>
     <ul>
-        <li><a href="{{ path('sorties_list') }}" title="Sorties">Sorties</a> </li>
+        <li><a href="{{ path('sorties_list') }}" title="Sorties">Sorties</a></li>
 
         {% if app.user %}
             <li><a href="{{ path('user', {id : app.user.id}) }}" title="Modifier mon profil">Mon profil</a></li>

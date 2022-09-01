@@ -3,9 +3,7 @@
 namespace App\Repository;
 
 use App\Data\SearchData;
-use App\Entity\Campus;
 use App\Entity\Sortie;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -77,15 +75,15 @@ class SortieRepository extends ServiceEntityRepository
     {
         $query = $this
             ->createQueryBuilder('p')
-            ->join('p.campus','c');
-        if (!empty($search->q)){
-            $query=$query
+            ->join('p.campus', 'c');
+        if (!empty($search->q)) {
+            $query = $query
                 ->andWhere('p.nom LIKE :q')
-                ->setParameter('q',"%{$search->q}%");
+                ->setParameter('q', "%{$search->q}%");
         }
 
-        if (!empty($search->campus)){
-            $query=$query
+        if (!empty($search->campus)) {
+            $query = $query
                 ->andWhere('c.id IN (:campus)')
                 ->setParameter('campus', $search->campus);
         }
@@ -95,7 +93,7 @@ class SortieRepository extends ServiceEntityRepository
 //        }
 
         //TODO faire les requete par date, tuto environ 35 min
-    return $query->getQuery()->getResult();
+        return $query->getQuery()->getResult();
     }
 
 
