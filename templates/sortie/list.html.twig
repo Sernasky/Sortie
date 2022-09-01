@@ -5,12 +5,11 @@
 {% block body %}
     <section class="sorties-list">
         <fieldset>
-            <legend>Selectionnez vos critères de recherches</legend>
-
+            <legend class="gras">Selectionnez vos critères de recherches</legend>
             <div>
                 {% include 'sortie/filtre.html.twig' %}
             </div>
-            <table>
+            <table class="table-dark" >
                 <tr class="tableHeader">
                     <td>Nom de le sortie</td>
                     <td>Campus</td>
@@ -23,9 +22,9 @@
                 {% for sortie in sorties %}
                     <tr class="tableBody">
                         <td>
-                            <a href="http://localhost/Sortie/public/sortie/afficher/{{ sortie.id }}">{{ sortie.nom }}</a>
+                            <a class="gras" href="http://localhost/Sortie/public/sortie/afficher/{{ sortie.id }}">{{ sortie.nom }}</a>
                         </td>
-                        <td>{{ sortie.campus.nom }}</td>
+                        <td >{{ sortie.campus.nom }}</td>
                         <td>{{ sortie.nombreInscriptionMax }}</td>
                         <td>{{ sortie.infosSortie }}</td>
                         <td>{{ sortie.etat.libelle }}</td>
@@ -39,7 +38,7 @@
                 {% endfor %}
             </table>
             <br>
-            <button type="button" class="btn btn-primary"><a href="http://localhost/sortie/public/sortie/creation">Créer une sortie</a></button>
+            <button type="button" class="btn btn-dark"><a href="http://localhost/sortie/public/sortie/creation">Créer une sortie</a></button>
         </fieldset>
     </section>
 {% endblock %}

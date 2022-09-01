@@ -1,13 +1,15 @@
 body {
-    background: darkslategrey;
+    background: linear-gradient(#708090FF, #e0e0e0) fixed;
     color: azure;
-    font-family: 'Crimson Text', serif;
+    font-family: 'Oxygen', sans-serif;
 }
 
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 5px;
+    text-align: center;
+
 }
 
 a {
@@ -16,7 +18,7 @@ a {
 }
 
 a:hover {
-    color: #BC956B;
+    color: darkgoldenrod;
 }
 
 img {
@@ -41,10 +43,14 @@ nav ul {
     display: flex;
     list-style: none;
     padding-left: 0;
+    font-family: 'Oxygen', sans-serif;
+    color: white;
 }
 
 nav li {
     margin-right: 1rem;
+    font-family: 'Oxygen', sans-serif;
+
 }
 
 
@@ -76,13 +82,12 @@ select{
 }
 
 .flash-success{
-    background-color: lawngreen;
+    background-color: darkred;
 }
 
-table {
+.table-dark {
     border-collapse:collapse;
     width:100%;
-    max-width:700px;
     min-width:400px;
     text-align:center;
 }
@@ -92,17 +97,18 @@ table {
     font-weight:bold;
     font-style:italic;
     margin:4px;
-    background: linear-gradient(#132135, #256845) fixed;
+    background: linear-gradient(#000000, #999999) fixed;
 }
 .tableBody{
     background-color: #DDDDDD;
     color: darkblue;
+
 }
 
 table,th, td {
     border: 1px solid gray;
-
 }
+
 
 th, td {
     height: 24px;
@@ -113,4 +119,48 @@ th, td {
 th {
     background-color:darkred;
 }
+.nav-link{
+    color: white;
+}
+.nav-link:hover {
+    background-color: slategrey;
+    border-radius: 10px;
+}
+
+.navbar-nav{
+    margin-left: 50%;
+}
+
+.form-login{
+    text-align: left;
+    margin-left: 330px;
+}
+footer{
+    background-color: black;
+    height: 50px;
+    padding-top: 10px;
+}
+
+.container-fluid{
+    height: 70px;
+}
+
+button{
+    margin: 10px;
+}
+
+.title-dark{
+    color: black;
+}
+
+.title-red{
+    color: darkred;
+}
+
+.gras{
+    font-weight: bold;
+    color: darkblue;
+
+}
+
 

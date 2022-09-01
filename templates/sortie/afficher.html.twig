@@ -3,33 +3,33 @@
 {% block title %}Détails de la sortie{% endblock %}
 
 {% block body %}
-    <h1>Afficher une sortie</h1>
+    <h1 class="gras">Afficher une sortie</h1>
     {# TODO remplir les champs avec les infos de la sortie #}
     <section>
         <div>
-            <ul>
-                <li>Nom de la sortie : {{ sortie.nom }}</li>
-                <li>Organisateur de la sortie: {{ sortie.user.pseudo }}</li>
-                <li>Date et heure de la sortie : {{ sortie.dateheuredebut|date('d-m-Y H:i:s') }} </li>
-                <li>Date limite d'inscription : {{ sortie.datelimiteinscription|date('d-m-Y') }} </li>
-                <li>Nombre de places : {{ sortie.nombreInscriptionMax }} </li>
-                <li>Durée : {{ sortie.duree|date('H:i') }} </li>
-                <li>Description et infos : {{ sortie.infosSortie }}</li>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-dark">Nom de la sortie : {{ sortie.nom }}</li>
+                <li class="list-group-item list-group-item-secondary">Organisateur de la sortie: {{ sortie.user.pseudo }}</li>
+                <li class="list-group-item list-group-item-dark">Date et heure de la sortie : {{ sortie.dateheuredebut|date('d-m-Y H:i:s') }} </li>
+                <li class="list-group-item list-group-item-secondary">Date limite d'inscription : {{ sortie.datelimiteinscription|date('d-m-Y') }} </li>
+                <li class="list-group-item list-group-item-dark">Nombre de places : {{ sortie.nombreInscriptionMax }} </li>
+                <li class="list-group-item list-group-item-secondary">Durée : {{ sortie.duree|date('H:i') }} </li>
+                <li class="list-group-item list-group-item-dark">Description et infos : {{ sortie.infosSortie }}</li>
             </ul>
         </div>
         <div>
-            <ul>
-                <li>Campus : {{ sortie.campus.nom }} </li>
-                <li>Ville: {{ sortie.lieu.ville.nom }} </li>
-                <li>Lieu : {{ sortie.lieu.nom }}</li>
-                <li>Rue :{{ sortie.lieu.rue }} </li>
-                <li>Code postal : {{ sortie.lieu.ville.codePostal }}</li>
-                <li>Latitude : {{ sortie.lieu.latitude }}</li>
-                <li>Longitude :{{ sortie.lieu.longitude }} </li>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-secondary">Campus : {{ sortie.campus.nom }} </li>
+                <li class="list-group-item list-group-item-dark">Ville: {{ sortie.lieu.ville.nom }} </li>
+                <li class="list-group-item list-group-item-secondary">Lieu : {{ sortie.lieu.nom }}</li>
+                <li class="list-group-item list-group-item-dark">Rue :{{ sortie.lieu.rue }} </li>
+                <li class="list-group-item list-group-item-secondary">Code postal : {{ sortie.lieu.ville.codePostal }}</li>
+                <li class="list-group-item list-group-item-dark">Latitude : {{ sortie.lieu.latitude }}</li>
+                <li class="list-group-item list-group-item-secondary">Longitude :{{ sortie.lieu.longitude }} </li>
 
             </ul>
             {% if sortie.etat.id == 21 %}
-            <h2>Motif de l'annulation de la sortie :{{ sortie.motifAnnulation}}</h2>
+            <h2 class="title-red">Motif de l'annulation de la sortie :{{ sortie.motifAnnulation}}</h2>
             {% endif %}
         </div>
         {#todo si le temps faire modifier#}
@@ -46,8 +46,8 @@
     {% include 'inc/desinscrire.html.twig' %}
     {% endif %}
     <section>
-        <h3>Liste des participants inscrits :</h3>
-        <table>
+        <h3 class="title-dark">Liste des participants inscrits</h3>
+        <table class="table-dark">
             <tr class="tableHeader">
                 <td>pseudo</td>
                 <td> nom</td>
@@ -60,7 +60,7 @@
             {% endfor %}
         </table>
         {% if app.user.id == sortie.user.id %}
-        <a href="{{ path('annulation_sortie', {'id': sortie.id}) }}"><button class="btn btn-dark btn-block w-100">Annuler la sortie</button></a>
+        <a href="{{ path('annulation_sortie', {'id': sortie.id}) }}"><button class="btn btn-warning">Annuler la sortie</button></a>
         {% endif %}
     </section>
 {% endblock %}
