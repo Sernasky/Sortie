@@ -20,7 +20,6 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', TextType::class, [
                 'attr' => array(
-                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
                     'placeholder' => 'exemple@gmail.com'
                 ),
                 'label' => 'Adresse Mail',
@@ -28,7 +27,6 @@ class RegistrationFormType extends AbstractType
     ])
             ->add('pseudo', TextType::class, [
                 'attr' => array(
-                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
                     'placeholder' => 'Votre pseudo'
                 ),
                 'label' => 'Pseudo',
@@ -36,7 +34,6 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('firstname', TextType::class, [
         'attr' => array(
-            'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
             'placeholder' => 'Votre prénom'
         ),
         'label' => 'Prénom',
@@ -44,7 +41,6 @@ class RegistrationFormType extends AbstractType
     ])
             ->add('lastname', TextType::class, [
                 'attr' => array(
-                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
                     'placeholder' => 'Votre nom'
                 ),
                 'label' => 'Nom',
@@ -52,7 +48,6 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('telephone', TextType::class, [
                 'attr' => array(
-                    'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
                     'placeholder' => '0123456789',
                 ),
                 'label' => 'Numéro de Téléphone',
