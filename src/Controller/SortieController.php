@@ -51,21 +51,12 @@ class SortieController extends AbstractController
 
         //Création du formulaire et du traitement
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-        //TODO traitement du formulaire à faire
-
         $sortieForm->handleRequest($request);
+
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
             $organisateur = $userRepository->find($this->getUser());
             $sortie->setUser($organisateur);
-
-            //TODO configurer le lieu/ enlever le bouchonage
-            $lieu = $lieuRepository->find(1);
-            $sortie->setLieu($lieu);
-
-            $etat = $etatRepository->find(17);
-            $sortie->setEtat($etat);
-
 
             $entityManager->persist($sortie);
             $entityManager->flush();

@@ -73,27 +73,28 @@ class SortieRepository extends ServiceEntityRepository
      */
     public function findSearch(SearchData $search): array
     {
+
         $query = $this
             ->createQueryBuilder('p')
             ->join('p.campus', 'c');
+        //champ de recherche pour le nom de la sortie
         if (!empty($search->q)) {
             $query = $query
                 ->andWhere('p.nom LIKE :q')
                 ->setParameter('q', "%{$search->q}%");
         }
-
+        //champ de recherche par campus
         if (!empty($search->campus)) {
             $query = $query
                 ->andWhere('c.id IN (:campus)')
                 ->setParameter('campus', $search->campus);
         }
-//        if (!empty($search->isInscrit)){
-//            $query= $query
-//                ->join('','')
-//                ->andWhere('p.inscription = 1 ');
-//        }
-
-        //TODO faire les requete par date, tuto environ 35 min
+        //champ de recherche si l'utilisateur est inscrit
+        if (!empty($search->isInscrit)){
+            $query= $query
+                ->join('p.inscription','i')
+                ->andWhere('p.user = i ');
+        }
         return $query->getQuery()->getResult();
     }
 
