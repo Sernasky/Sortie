@@ -17,10 +17,6 @@ class Sortie
     #[ORM\Column]
     private ?int $id = null;
 
-    /*
-     * TODO validation à faire
-     */
-
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
         message: 'Merci de renseigner le nom de la sortie!'
